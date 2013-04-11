@@ -1,0 +1,27 @@
+{
+    "name": "yagmikita/cards",
+    "type": "library",
+    "keywords": [
+        "games",
+	"library",
+	"cards"
+    ],
+    "authors": [
+        {
+            "name": "Gopkalo Nikita",
+            "email": "yagmikita@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "phpunit/PHPUnit": "3.7.*",
+        "psr/log": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Card": "src/Card",
+	    "CardTests": "tests/CardTests"
+        }
+    }
+}
