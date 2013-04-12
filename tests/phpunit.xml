@@ -1,7 +1,8 @@
 <phpunit bootstrap="./bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="CardsLibTests">
-            <directory>./CardTests/Root/Log</directory>
+            <directory>./CardTests/Entity</directory>
+            <directory>./CardTests/Collection</directory>
         </testsuite>
     </testsuites>
 
