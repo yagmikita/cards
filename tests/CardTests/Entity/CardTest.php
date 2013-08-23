@@ -1,8 +1,8 @@
 <?php
 
-namespace CardTests\Card;
+namespace CardTests\Entity;
 
-use Card\Card\Card as Card;
+use CardInfrastructure\Card\Card;
 
 class CardTest extends \PHPUnit_Framework_TestCase
 {

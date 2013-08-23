@@ -12,7 +12,7 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
              Zend\Loader\StandardAutoloader::LOAD_NS => array(
                  'Psr'      => __DIR__ . '/../vendor/Psr',
                  'Zend'     => __DIR__ . '/../vendor/Zend',
-                 'Card'       => __DIR__ . '/../src/Card',
+                 'App'       => __DIR__ . '/../app',
                  'CardTest'   => __DIR__ . '/CardTest'
              ),
         ));
