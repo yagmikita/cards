@@ -1,6 +1,6 @@
 <?php
 
-namespace CardInfrastructure\Suit;
+namespace App\CardInfrastructure\Suit;
 
 class Spade extends SuitAbstract
 {

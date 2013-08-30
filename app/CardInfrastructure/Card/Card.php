@@ -1,6 +1,6 @@
 <?php
 
-namespace Card\Card;
+namespace App\CardInfrastructure\Card;
 
 use Card\Suit\SuitInterface   as SuitInterface,
     Card\Rank\RankInterface   as RankInterface,

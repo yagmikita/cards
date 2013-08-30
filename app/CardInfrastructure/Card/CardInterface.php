@@ -1,6 +1,6 @@
 <?php
 
-namespace CardInfrastructure\Card;
+namespace App\CardInfrastructure\Card;
 
 interface CardInterface
 {

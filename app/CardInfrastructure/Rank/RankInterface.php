@@ -1,6 +1,6 @@
 <?php
 
-namespace Card\Rank;
+namespace App\CardInfrastructure\Rank;
 
 interface RankInterface
 {
