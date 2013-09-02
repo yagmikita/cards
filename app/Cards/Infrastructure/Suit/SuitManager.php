@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CardInfrastructure\Suit;
+namespace Cards\Infrastructure\Suit;
 
 class SuitManager
 {
