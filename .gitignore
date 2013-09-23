@@ -6,3 +6,4 @@ extras/documentation
 .git
 nbproject
 composer.lock
+vendor/

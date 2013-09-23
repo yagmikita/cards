@@ -1,6 +1,6 @@
 <?php
 
-namespace Card\Holder;
+namespace Cards\Infrastructure\Holder;
 
 interface HolderAwareInterface
 {

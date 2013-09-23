@@ -1,6 +1,6 @@
 <?php
 
-namespace Card\Rank;
+namespace Cards\Infrastructure\Rank;
 
 interface RankAwareInterface
 {

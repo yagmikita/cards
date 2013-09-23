@@ -4,23 +4,19 @@ namespace Cards\Infrastructure\Card;
 
 use Cards\Infrastructure\Sute\SuitInterface;
 use Cards\Infrastructure\Rank\RankInterface;
-use Cards\Infrastructure\Holder\HolderInterface;
 
 class Card implements CardInterface
 {
     protected $suit;
     protected $rank;
-    protected $holder;
 
     public function __construct(
         SuitInterface $suit = null,
-        RankInterface $rank = null,
-        HolderInterface $holder = null
+        RankInterface $rank = null
     )
     {
-        $this->setSuit($suit);
-        $this->setRank($rank);
-        $this->setHolder($holder);
+        $this->setSuit($suit)
+            ->setRank($rank);
     }
 
     public function setSuit(SuitInterface $suit)
@@ -43,21 +39,5 @@ class Card implements CardInterface
     public function getRank()
     {
         return $this->rank;
-    }
-
-    public function setHolder(HolderInterface $holder)
-    {
-        $this->holder = $holder;
-        return $this;
-    }
-
-    public function getHolder()
-    {
-        return $this->holder;
-    }
-
-    public function isTrump()
-    {
-        
     }
 }

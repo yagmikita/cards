@@ -1,11 +1,7 @@
 {
     "name": "yagmikita/cards",
     "type": "library",
-    "keywords": [
-        "games",
-	"library",
-	"cards"
-    ],
+    "keywords": ["games", "game", "library", "cards"],
     "authors": [
         {
             "name": "Gopkalo Nikita",
@@ -15,12 +11,13 @@
     ],
     "require": {
         "php": ">=5.4",
-        "psr/log": "dev-master"
+        "psr/log": "dev-master",
+        "aura/di": "dev-master"
     },
     "autoload": {
         "psr-0": {
-            "Card": "src/Card",
-	    "CardTests": "tests/CardTests"
+            "Cards": "src/Cards",
+	    "CardsTests": "tests/CardsTests"
         }
     }
 }
