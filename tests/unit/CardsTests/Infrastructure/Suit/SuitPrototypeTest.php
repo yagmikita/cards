@@ -1,12 +1,9 @@
 <?php
 
-namespace CardTests\Entity;
+namespace CardTests\Infrastructure\Suit;
 
-use CardInfrastructure\Card\Card;
-
-class CardTest extends \PHPUnit_Framework_TestCase
+class SuitPrototypeTest extends \PHPUnit_Framework_TestCase
 {
-    protected $_card;
     public $suits = array(
         'spades',
         'hearts',
@@ -30,21 +27,21 @@ class CardTest extends \PHPUnit_Framework_TestCase
         13 => "King",
         14 => "Ace",
     );
+    protected $card;
 
     public function setUp()
     {
-        $this->_card = new Card;
+        $this->card = new \Cards\Infrastructure\Card\Card();
     }
 
     public function tearDown()
     {
-        unset($this->_card);
+        unset($this->card);
     }
 
     public function testCardIsCreatedSuccessfully()
     {
-        $this->assertTrue(in_array($this->_card->getSuit(), $this->suits));
-        $this->assertTrue(in_array($this->_card->getRank(), $this->ranks));
+        $this->assertTrue(in_array($this->card->getSuit(), $this->suits));
+        $this->assertTrue(in_array($this->card->getRank(), $this->ranks));
     }
-
 }

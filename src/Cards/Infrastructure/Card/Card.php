@@ -2,21 +2,20 @@
 
 namespace Cards\Infrastructure\Card;
 
-use Cards\Infrastructure\Sute\SuitInterface;
+use Cards\Infrastructure\StdLib\Exceptions\CardException;
+use Cards\Infrastructure\Suit\SuitInterface;
 use Cards\Infrastructure\Rank\RankInterface;
+use Cards\Infrastructure\StdLib\ResourceAbstract;
 
-class Card implements CardInterface
+class Card extends ResourceAbstract implements CardInterface
 {
     protected $suit;
     protected $rank;
 
-    public function __construct(
-        SuitInterface $suit = null,
-        RankInterface $rank = null
-    )
+    public function __construct(array $resource, SuitInterface $suit, RankInterface $rank)
     {
-        $this->setSuit($suit)
-            ->setRank($rank);
+        parent::__construct($resource);
+        $this->setSuit($suit)->setRank($rank);
     }
 
     public function setSuit(SuitInterface $suit)

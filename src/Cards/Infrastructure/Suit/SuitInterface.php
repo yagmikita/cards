@@ -2,26 +2,49 @@
 
 namespace Cards\Infrastructure\Suit;
 
-use Cards\Infrastructure\Suit\Type\TypeFactory;
-
 interface SuitInterface
 {
-    public function get();
-    public function getTitle();
-    public function getPriority();
+    /**
+     * @return string
+     */
     public function getColor();
+
+    /**
+     * @return string
+     */
     public function getSymbol();
-    public function title();
-    public function priority();
-    public function color();
-    public function symbol();
+
+    /**
+     * @return string
+     */
+    public function getTitle();
+
+    /**
+     * @param string $color
+     * @return $this
+     */
+    public function setColor($color);
+
+    /**
+     * @param string $symbol
+     * @return $this
+     */
+    public function setSymbol();
+
+    /**
+     * @param string $title
+     * @return $this
+     */
+    public function setTitle();
+
+    /**
+     * @param bool $isTrump
+     * @return $this
+     */
+    public function setAsTrump($isTrump);
+
+    /**
+     * @return bool
+     */
     public function isTrump();
-    public function isActive();
-    public function activate();
-    public function deactivate();
-    public function increasePriorityBy($i);
-    public function decreasePriorityBy($i);
-    public function setTypeFactory($suitType, TypeFactory $typeFactory = null);
-    public function setTrumpSuit();
-    public function removeTrump();
 }
