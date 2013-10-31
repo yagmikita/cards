@@ -30,5 +30,5 @@ interface ResourceInterface
      *
      * @return this
      */
-    public function setId();
+    public function setId($id);
 }

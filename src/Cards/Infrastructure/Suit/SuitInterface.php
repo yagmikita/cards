@@ -29,13 +29,13 @@ interface SuitInterface
      * @param string $symbol
      * @return $this
      */
-    public function setSymbol();
+    public function setSymbol($symbol);
 
     /**
      * @param string $title
      * @return $this
      */
-    public function setTitle();
+    public function setTitle($title);
 
     /**
      * @param bool $isTrump

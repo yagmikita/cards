@@ -6,6 +6,8 @@ use Cards\Infrastructure\Deck\DeckInterface;
 use Cards\Infrastructure\Card\Card;
 use Cards\Infrastructure\Suit\Suit;
 use Cards\Infrastructure\Rank\Rank;
+use Cards\Infrastructure\Suit\SuitIterator;
+use Cards\Infrastructure\Rank\RankIterator;
 
 class DeckBuilder
 {
@@ -19,10 +21,12 @@ class DeckBuilder
     protected $ranks;
     protected $deck;
 
-    public function __construct($deckType, DeckInterface $deck)
+    public function __construct($deckType, DeckInterface $deck, SuitIterator $suits, RankIterator $ranks)
     {
         $this->setDeckType($deckType);
         $this->cards = $deck;
+        $this->suits = $suits;
+        $this->ranks = $ranks;
     }
 
     public function setDeckType($deckType)
@@ -48,7 +52,7 @@ class DeckBuilder
     protected function buildSuits()
     {
         foreach ($this->config['suit'] as $index => $suit) {
-            $this->suits[] = new Suit([
+            $this->suits->addEntity(new Suit([
                 'id' => $index,
                 'type' => self::RESOURCE_TYPE_SUIT,
             ], [
@@ -56,24 +60,24 @@ class DeckBuilder
                 'color' => $suit['color'],
                 'symbol'=> $suit['symbol'],
                 'isTrump'=> $suit['isTrump'],
-            ]);
+            ]));
         }
-        return $this->suits;
+        return $this->suits->getAll();
     }
 
     protected function buildRanks()
     {
         foreach ($this->config['rank'] as $index => $rank) {
-            $this->suits[] = new Rank([
+            $this->suits->addEntity(new Rank([
                 'id' => $index,
                 'type' => self::RESOURCE_TYPE_RANK,
             ], [
                 'value' => $rank['title'],
                 'titleFull' => $rank['titleFull'],
                 'titleShort' => $rank['titleShort'],
-            ]);
+            ]));
         }
-        return $this->ranks;
+        return $this->ranks->getAll();
     }
 
     protected function createCards($suits, $ranks)

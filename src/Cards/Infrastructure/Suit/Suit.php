@@ -37,25 +37,25 @@ class Suit extends ResourceAbstract implements SuitInterface
 
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = (string)$title;
         return $this;
     }
 
     public function setColor($color)
     {
-        $this->color = $color;
+        $this->color = (string)$color;
         return $this;
     }
 
     public function setSymbol($symbol)
     {
-        $this->symbol = $symbol;
+        $this->symbol = (string)$symbol;
         return $this;
     }
 
     public function setAsTrump($isTrump)
     {
-        $this->isTrump = $isTrump;
+        $this->isTrump = (bool)$isTrump;
         return $this;
     }
 
