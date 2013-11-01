@@ -8,25 +8,107 @@ class Fool implements RulesInterface
 {
     const DECK_GAME = 36;
     const DECK_PLAYER = 6;
+    const DECK_PLAYER_EMPTY = 0;
     const RANK_GAME_MIN = 6;
 
     public static function rules()
     {
         return [
+            'turn' => [
+                'criteria' => [
+                    'loose' => [
+                        [
+                            'class' => 'PlayerManager',
+                            'method' => [
+                                'name' => 'grabFromDeck',
+                                'params' => [
+                                    'playerStatus' => 'defender',
+                                    'deckType' => 'game',
+                                ],
+                            ],
+                        ],
+                        [
+                            'class' => 'PlayerManager',
+                            'method' => [
+                                'name' => 'grabFromDeck',
+                                'params' => [
+                                    'playerStatus' => ['attacker', 'idle'],
+                                    'deckType' => 'idle',
+                                    'how' => 'diff',
+                                    'max' => self::DECK_PLAYER,
+                                ],
+                            ],
+                        ],
+                    ],
+                    'win' => [
+                        'class' => 'PlayerManager',
+                        'method' => [
+                            'name' => 'grabFromDeck',
+                            'params' => [
+                                'playerStatus' => 'attacker',
+                                'type' => 'game',
+                                'how' => 'diff',
+                                'max' => self::DECK_PLAYER,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'game' => [
+                'criteria' => [
+                    'loose' => [
+                        [
+                            'class' => 'PlayerManager',
+                            'method' => [
+                                [
+                                    'name' => 'checkPlayerDeck',
+                                    'params' => [
+                                        'playerStatus' => 'attacker',
+                                        'deckType' => 'game',
+                                    ],
+                                    'expected' => [
+                                        'operation' => '==',
+                                        'value' => self::DECK_PLAYER_EMPTY,
+                                    ],
+                                ],
+                                [
+                                    'name' => 'checkPlayerDeck',
+                                    'params' => [
+                                        'playerStatus' => 'attacker',
+                                        'deckType' => 'game',
+                                    ],
+                                    'expected' => [
+                                        'operation' => '>',
+                                        'value' => self::DECK_PLAYER_EMPTY,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'win' => [
+                        'class' => 'Player',
+                        'method' => [
+                            'name' => 'grabFromDeck',
+                            'params' => [
+                                'playerStatus' => 'attacker',
+                                'type' => 'game'
+                            ],
+                        ]
+                    ],
+                ],
                 'begin' => [
                     [
                         'class' => 'DeckManager',
                         'method' => [
                             [
-                                'init',
+                                'name' => 'init',
                                 'params' => [
                                     'deckType' => 'game',
                                     'minRankValue' => self::RANK_GAME_MIN,
                                 ],
                             ],
                             [
-                                'shuffle',
+                                'name' => 'shuffle',
                                 'params' => [
                                     'deckType' => 'game',
                                 ],
@@ -37,63 +119,31 @@ class Fool implements RulesInterface
                         'class' => 'PlayerManager',
                         'method' => [
                             [
-                                'grabFromDeck',
+                                'name' => 'grabFromDeck',
                                 'params' => [
                                     'playerStatus' => 'idle',
                                     'deckType' => 'game',
+                                    'how' => 'diff',
+                                    'max' => self::DECK_PLAYER,
                                 ],
                             ],
                             [
-                                'reindexPlayers',
+                                'name' => 'reindexPlayers',
                             ],
                         ],
                     ],
                 ],
                 'loop' => [
                     'turn' => [
-                        'class' => 'GameManager',
+                        'class' => 'PlayerManager',
                         'method' => [
-                            'analyzeTurn',
+                            'name' => 'analyzeTurn',
                             'params' => [
                                 'playerStatus' => 'defender',
                                 'deckType' => 'game',
                             ],
                         ],
                     ],
-                    'criteria' => [
-                        'loose' => [
-                            [
-                                'class' => 'PlayerManager',
-                                'method' => [
-                                    'grabFromDeck',
-                                    'params' => [
-                                        'playerStatus' => 'defender',
-                                        'deckType' => 'game',
-                                    ],
-                                ],
-                            ],
-                            [
-                                'class' => 'PlayerManager',
-                                'method' => 'grabFromDeck',
-                                'params' => [
-                                    'playerStatus' => 'attacker',
-                                    'deckType' => 'idle',
-                                    'how' => 'diff',
-                                    'max' => self::DECK_PLAYER,
-                                ],
-                            ],
-                        ],
-                        'win' => [
-                            'class' => 'Player',
-                            'method' => 'grabFromDeck',
-                            'params' => [
-                                'type' => 'game'
-                            ],
-                        ],
-                    ],
-                ],
-                'end' => [
-
                 ],
             ],
         ];

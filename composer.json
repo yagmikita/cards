@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.4",
+        "yagmikita/array-utils": "dev-master",
         "psr/log": "dev-master",
         "aura/di": "dev-master"
     },
