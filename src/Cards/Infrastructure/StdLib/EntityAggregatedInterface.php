@@ -1,6 +1,6 @@
 <?php
 
-namespace Cards\Infrastructure\Suit;
+namespace Cards\Infrastructure\StdLib;
 
 interface EntityAggregatedInterface
 {

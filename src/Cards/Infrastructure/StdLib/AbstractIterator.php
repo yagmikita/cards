@@ -4,13 +4,15 @@ namespace Cards\Infrastructure\StdLib;
 
 abstract class AbstractIterator implements \Iterator, EntityAggregatedInterface
 {
+    const POSITION_INITIAL = 0;
+
     protected $entities;
     protected $index;
 
     public function __construct()
     {
         $this->entities = [];
-        $this->index = 0;
+        $this->index = self::POSITION_INITIAL;
     }
 
     public function current()
@@ -25,7 +27,7 @@ abstract class AbstractIterator implements \Iterator, EntityAggregatedInterface
 
     public function rewind()
     {
-        $this->index = 0;
+        $this->index = self::POSITION_INITIAL;
         return $this;
     }
 

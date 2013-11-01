@@ -5,68 +5,57 @@ namespace Cards\Infrastructure\Deck;
 use Cards\Infrastructure\StdLib\Exceptions\DeckException;
 use Cards\Infrastructure\StdLib\ResourceAbstract;
 use Cards\Infrastructure\Card\CardInterface;
+use Cards\Infrastructure\Card\CardIterator;
 
 class Deck extends ResourceAbstract implements \Iterator, DeckInterface
 {
-    const POSITION_INITIAL = 0;
-
     protected $cards;
-    protected $position;
 
-    public function __construct(array $resource, array $cards)
+    public function __construct(array $resource, CardIterator $cards)
     {
         parent::__construct($resource);
-        $this->position = self::POSITION_INITIAL;
         $this->cards = $cards;
     }
 
     public function current()
     {
-        return $this->cards[$this->position];
+        return $this->cards->current();
     }
 
     public function key()
     {
-        return $this->position;
+        return $this->cards->key();
     }
 
     public function next()
     {
-        $this->position++;
-        return $this->current();
+        return $this->cards->next();
     }
 
     public function rewind()
     {
-        $this->position = self::POSITION_INITIAL;
-        return $this->current();
+        return $this->cards->rewind();
     }
 
     public function valid ()
     {
-        return isset($this->cards[$this->position]);
+        return $this->cards->valid();
     }
 
     public function getCards()
     {
-        return $this->cards;
+        return $this->cards->getAll();
     }
 
     public function addCard(CardInterface $card)
     {
-        $this->cards[] = $card;
+        $this->cards->addEntity($card);
         return $this;
     }
 
     public function addCards(array $cards)
     {
-        foreach ($cards as $index => $card) {
-            if ($card instanceof CardInterface) {
-                $this->add($card);
-            } else {
-                throw new DeckException("[Deck]: the card with index='{$index}' is not of a CardInterface type", 1);
-            }
-        }
+        $this->cards->addEntities($cards);
         return $this;
     }
 
@@ -74,9 +63,9 @@ class Deck extends ResourceAbstract implements \Iterator, DeckInterface
     {
         $this->iterate(function($index, $_card) use ($card) {
             if ($_card->getId() === $card->getId()) {
-                unsert($this->cards[$card->getId()]);
-            } else {
-                throw new DeckException("[Deck]: there is no card with index='{$index}'", 2);
+                $cards = $this->cards->getAll();
+                unset($cards[$card->getId()]);
+                $this->cards->addEntities($cards);
             }
         });
         return $this;
@@ -96,18 +85,20 @@ class Deck extends ResourceAbstract implements \Iterator, DeckInterface
 
     public function shuffle()
     {
-        shuffle($this->cards);
+        $cards = $this->cards->getAll();
+        shuffle($cards);
+        $this->cards->addEntities($cards);
         return $this;
     }
 
     public function hasCards()
     {
-        return (bool)count($this->cards);
+        return (bool)count($this->cards->getAll());
     }
 
     protected function iterate(callable $callback)
     {
-        foreach ($this->cards as $index => $card) {
+        foreach ($this->cards->getAll() as $index => $card) {
             $callback($index, $card);
         }
     }

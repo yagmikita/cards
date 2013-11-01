@@ -2,11 +2,23 @@
 
 namespace CardsTests;
 
+use Aura\Di\Container;
+use Aura\Di\Forge;
+use Aura\Di\Config;
+
 class CardsTestCase extends \PHPUnit_Framework_TestCase
 {
     const CLASSNAME_CARD = '\Cards\Infrastructure\Card\Card';
     const CLASSNAME_SUIT = '\Cards\Infrastructure\Suit\Suit';
     const CLASSNAME_RANK = '\Cards\Infrastructure\Rank\Rank';
+    const CLASSNAME_DECK = '\Cards\Infrastructure\Deck\Deck';
+
+    protected $di;
+
+    public function setUp()
+    {
+        $this->di = new Container(new Forge(new Config));
+    }
 
     protected function resource()
     {
@@ -52,6 +64,13 @@ class CardsTestCase extends \PHPUnit_Framework_TestCase
             'titleFull' => 'two3',
             'titleShort' => '23',
         ];
+    }
+
+    protected function getCard()
+    {
+        return $this->getMockBuilder(self::CLASSNAME_CARD)
+                     ->disableOriginalConstructor()
+                     ->getMock();
     }
 
     protected function getSuit()
